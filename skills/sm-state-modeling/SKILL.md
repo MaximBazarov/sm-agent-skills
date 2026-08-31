@@ -14,11 +14,11 @@ Ask the human which area, if they have not said. One area, never several.
 
 ## 1. Load the area
 
-From `docs/state/STATE-MAP.md`, take this area's facts, their owners, its outside boundaries, and its two order lines. Confirm the `model after` areas are already modelled; if one is not, say so and stop rather than guessing at its shape.
+From the State Map, take this area's responsibility sentence, its `uses` lines, its facts and their owners, its outside boundaries, and its two order lines. Confirm the `model after` areas are already modelled; if one is not, say so and stop rather than guessing at its shape.
 
 Then read the code behind those facts, so the proposal you bring to the interview comes from what exists. Arrive with answers, not questions.
 
-**Done when** you can state this area's facts, which are owned and which are sourced, and what the code does with each today.
+**Done when** you can state this area's facts and which of the three owners each carries, what it needs from each area it uses, and what the code does with each fact today.
 
 ## 2. Draw the Containers
 
@@ -74,7 +74,9 @@ For each crossing the map recorded, name the AsyncStrategy that owns it and the 
 
 A strategy that does not exist yet is a Satellite decision, which is a fork: ask it, do not assume it. Storage or network code written into this area instead is the failure this step exists to prevent.
 
-**Done when** every crossing names its strategy and Policy, and every strategy is either an existing Satellite or a recorded fork.
+**Only a fact sourced from outside belongs here.** A fact owned elsewhere in the app is read from that area's Values, and it needs no strategy, no Policy, and no entry in this section — the map's `uses` line already covers it. Where that fact is still a `@Published` on a legacy singleton, it is a migration note for `sm-refactor`, not a crossing. Reaching for a strategy is the pull to resist, because it looks like the only tool for a fact this area does not own.
+
+**Done when** every crossing names its strategy and Policy, every strategy is either an existing Satellite or a recorded fork, and nothing this area merely uses has been given a strategy.
 
 ## 8. Close with a build order
 

@@ -29,6 +29,8 @@ Two findings matter more than the rest, so look for them by name:
 
 Model with **`sm-state-map`**, then **`sm-state-modeling`** per area, and tell them the model is a redraw: group facts by what dies together, not by which class holds them today. Those two skills are typed by a human, so hand back here and stop.
 
+One thing to carry into that modelling, because a codebase full of shared instances invites the mistake: **a fact held by a legacy singleton is owned by the application, not sourced from outside.** It reads like an external dependency at every call site, and modelling it as a crossing would earn it an AsyncStrategy it must never have. It is *owned elsewhere in the app*, and the bridge in step 3 is the tool for it.
+
 Return to step 3 with the models in hand. If they already exist, start there.
 
 **Done when** every fact from step 1 appears in an area model, and every fact whose Container differs from its current class is noted as a move.
