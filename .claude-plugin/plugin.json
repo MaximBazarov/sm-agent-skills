@@ -1,0 +1,11 @@
+{
+  "name": "sm-skills",
+  "displayName": "Structured State Management skills",
+  "description": "Model an application's state into an artifact, build from that artifact, and refactor Combine into Structured State Management.",
+  "version": "0.9.2",
+  "author": { "name": "Maxim Bazarov" },
+  "homepage": "https://github.com/MaximBazarov/sm-agent-skills",
+  "repository": "https://github.com/MaximBazarov/sm-agent-skills",
+  "license": "MIT",
+  "keywords": ["swift", "swiftui", "state-management", "structured-state-management"]
+}

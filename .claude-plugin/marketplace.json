@@ -1,0 +1,15 @@
+{
+  "name": "sm",
+  "owner": {
+    "name": "Maxim Bazarov",
+    "url": "https://github.com/MaximBazarov"
+  },
+  "description": "Skills for building Swift applications with Structured State Management.",
+  "plugins": [
+    {
+      "name": "sm-skills",
+      "source": "./",
+      "category": "development"
+    }
+  ]
+}
