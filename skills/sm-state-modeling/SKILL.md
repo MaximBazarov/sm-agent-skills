@@ -58,7 +58,7 @@ Per Operation record what it writes, and derive **sync or async** from whether i
 
 Include the changes that are easy to forget: entering and leaving, dropping the Container, and whatever the outside can trigger.
 
-**Done when** every Value from step 3 has at least one Operation that writes it. A Value with no writer is either a Computed you missed or a fact this area does not own — resolve it now, because it will not survive implementation.
+**Done when** every Value from step 3 has a named writer. For an owned fact the writer is an Operation here. For a sourced fact it is the strategy's inbound, named in step 7, and no Operation is owed — the outside changed, the application did not. A Value with neither is a Computed you missed or a fact another area owns; resolve it now, because it will not survive implementation.
 
 ## 6. Name the Services
 
