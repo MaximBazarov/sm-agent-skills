@@ -35,7 +35,34 @@ Then interview **only the genuine forks** — the decisions where two answers ar
 4. **Whether a new Satellite gets created.** A new external boundary is a package decision, not a modelling one.
 5. **Whether a fact belongs in the Environment at all**, rather than staying view-local. The Environment is for facts more than one surface needs.
 
-Ask a fork as a numbered question with your recommended answer attached, so answering is a yes or a correction rather than an essay.
+### How to ask a fork
+
+Number it, attach your recommended answer, and write it so answering is a yes or a correction rather than an essay.
+
+**Assume the person knows their product and not this library.** They are the authority on what the application should do, which is why you are asking them; they did not sign up to learn a vocabulary first. A question they have to decode is a question they answer badly, and a badly answered fork is built into everything downstream.
+
+So write every fork in three beats before the options:
+
+1. **Today** — what the code does now, in plain terms, concretely enough that they recognise it.
+2. **After** — what it becomes if modelled this way.
+3. **At stake** — what actually goes wrong, in something they can see. A slow screen, a stale value, a setting that will not stick.
+
+The three beats are also a check on you. A fork whose "at stake" you cannot write in one plain sentence is not a fork worth a human's attention — derive it and move on.
+
+<details>
+<summary>The same question, badly and well</summary>
+
+**Badly.** *Is the anchor position a fact? It is a projection of an accessibility read recomputed at 60 Hz, existing in state only so the drawing can follow it. Recommended: keep it out of the Environment, since a Value written 60 times a second costs an observation round per write.*
+
+Every noun in that is ours, and none of it says what breaks.
+
+**Well.** *Sixty times a second the app asks the system where the user's text selection is, and moves the caret to match.*
+
+*If that position becomes state, something writes it sixty times a second and the caret watches it. Each write announces itself, and a watcher redraws on the next pass rather than the current one — so the caret would always be one frame behind. While the user drags a selection, it visibly trails their mouse.*
+
+*Recommended: leave it out, and let the caret ask for the position directly the way it does now. State is for what changes when the user does something, not for a signal that changes every frame regardless.*
+
+</details>
 
 ## Derive the rest, and record why
 
@@ -54,17 +81,21 @@ Everything else follows from a property of the fact itself. Derive it, write the
 
 Every fact has exactly one of three owners, and the third exists because it is the one that gets lost:
 
-| Owner | Means | What follows |
-| --- | --- | --- |
-| **Owned here** | This area is the source of truth | An Operation in this area writes it |
-| **Owned elsewhere in the app** | Another area is the source of truth. Name it | Read that area's Values. No crossing, no strategy, nothing to decide |
-| **Sourced from outside** | Something beyond the process owns it — a store, a server, the system | An AsyncStrategy, and possibly a Satellite |
+| Owner | Means | What follows | Write it as |
+| --- | --- | --- | --- |
+| **Owned here** | This area is the source of truth | An Operation in this area writes it | `Value here`, or `Computed here` |
+| **Owned elsewhere in the app** | Another area is the source of truth. Name it | Read that area's Values. No crossing, no strategy, nothing to decide | `Value on <Area>`, or `@SMPublished on <Area>` while that area is still legacy |
+| **Sourced from outside** | Something beyond the process owns it — a store, a server, the system | An AsyncStrategy, and possibly a Satellite | `outside: <what>` |
+
+The three names on the left are for reasoning. **The artifact uses the spellings on the right**, because a reader of the map wants to know what to reach for, not which category a fact fell into. `@SMPublished on Checker` says everything `owned elsewhere in the app: Checker` says and also says how to get at it.
+
+Say `@SMPublished` only where the owning area really is a legacy class today. In a new application there is nothing to bridge, and after that area migrates the bridge goes, so the spelling is `Value on <Area>` both before there was legacy code and after it is gone.
 
 **Outside the application never means outside this area.** That sentence is the whole point of the middle row. When a modelling pass is scoped to one feature, every neighbouring area is out of view, and the pull is to file it as an outside boundary because that looks like the only column for a thing you are not modelling. It is not: a fact that application code writes is owned by the application, and an AsyncStrategy wrapping it is the app building an adapter to talk to itself.
 
 The test is mechanical, so derive it rather than asking: **can application code write this fact?** If yes it is owned, here or elsewhere. If only the world outside can change it, it is sourced.
 
-A fact owned elsewhere may still be a `@Published` on a legacy singleton rather than a Value. That is a property of the code today, not of who owns the fact, so it stays *owned elsewhere* and picks up a note pointing at `sm-refactor`, whose `@SMPublished` bridge is the tool for it.
+A fact owned elsewhere may still be a `@Published` on a legacy singleton rather than a Value. That is a property of the code today, not of who owns the fact, so it stays owned elsewhere and is written `@SMPublished on <Area>` — which is both the answer and the instruction, since that bridge is `sm-refactor`'s tool for exactly this.
 
 ## Container granularity is the drop boundary
 

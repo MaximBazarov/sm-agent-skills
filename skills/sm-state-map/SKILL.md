@@ -50,7 +50,7 @@ For each fact, record where it lives today and who writes it. A fact with two wr
 
 ## 3. Mark who owns each fact
 
-One of three owners per fact, from `reference/MODELLING.md`: **owned here**, **owned elsewhere in the app** naming the area, or **sourced from outside**.
+One of three owners per fact, from `reference/MODELLING.md`. Write the concrete spelling, not the category name: `Value here`, `Computed here`, `Value on <Area>`, `@SMPublished on <Area>` where that area is still a legacy class, or `outside: <what>`.
 
 Derive it, do not ask it. The test is mechanical: **can application code write this fact?** If yes it is owned, and the sketch's `uses` lines already say by whom. If only the world beyond the process can change it, it is sourced.
 
@@ -104,7 +104,7 @@ Write `docs/state/STATE-MAP.md` for a whole application, or `docs/state/<scope>-
 
 | Fact | Owner | Lives today | Notes |
 | --- | --- | --- | --- |
-| ... | owned here / owned elsewhere: <area> / sourced from <what> | <where in the code> | |
+| ... | Value here / Computed here / Value on <Area> / @SMPublished on <Area> / outside: <what> | <where in the code> | |
 
 **Outside boundaries**: <each crossing, with its direction, and the Satellite or the open fork>
 
